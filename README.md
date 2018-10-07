@@ -6,3 +6,4 @@ datetime <- strptime(paste(power$Date,power$Time,sep=""),"%d/%m/%Y %H:%M:%S")
 realpower <- cbind(power,datetime)
 realpower$Global_active_power <- as.numeric(realpower$Global_active_power)
 hist(realpower$Global_active_power,col="red")
+
