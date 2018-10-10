@@ -1,3 +1,5 @@
+#Plot1_code
+
 getwd()
 setwd()
 power <- read.csv("household_power_consumption.txt",header=T, sep=";")
@@ -11,6 +13,7 @@ hist(finaldata$Global_active_power,ylab="Frequency",xlab="Global_active_power")
 dev.off()
 
 
+#Plot2_code
 
 power <- read.csv("household_power_consumption.txt",header=T, sep=";")
 data <- power[power$Date %in% c("1/2/2007","2/2/2007"),]
@@ -21,11 +24,34 @@ jpeg(Plot2.jpg",width=450,height=450)
 plot(finaldata$realtime, finaldata$Global_active_power, type="l", col="black", xlab="", ylab="Global Active Power (kilowatts)")
 dev.off()
 
+#Plot3_code
+
 power <- read.csv("household_power_consumption.txt",header=T, sep=";")
 data <- power[power$Date %in% c("1/2/2007","2/2/2007"),]
 realtime <-strptime(paste(data$Date, data$Time, sep=" "),"%d/%m/%Y %H:%M:%S")
 finaldata <- cbind(data,realtime)
 finaldata$Global_active_power <- as.numeric(finaldata$Global_active_power)
-jpeg(Plot2.jpg",width=450,height=450)
+jpeg(Plot3.jpg",width=450,height=450)
+plot(x=finaldata$realtime,y=finaldata$Sub_metering_1,xlab="",type="l",ylab="Energy sub metering")
+lines(x=finaldata$realtime,y=finaldata$Sub_metering_2,col="red")
+lines(x=finaldata$realtime,y=finaldata$Sub_metering_3,col="blue")
+legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2,legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+dev.off()
 
+#Plot4_code
+
+power <- read.csv("household_power_consumption.txt",header=T, sep=";")
+data <- power[power$Date %in% c("1/2/2007","2/2/2007"),]
+realtime <-strptime(paste(data$Date, data$Time, sep=" "),"%d/%m/%Y %H:%M:%S")
+finaldata <- cbind(data,realtime)
+finaldata$Global_active_power <- as.numeric(finaldata$Global_active_power)
+jpeg(Plot3.jpg",width=450,height=450)
+par(mfrow=c(2,2))
+plot(x=finaldata$realtime,y=finaldata$Global_active_power,type="l",xlab="",ylab="Global Active Power (kilowatts)")
+lot(x=finaldata$realtime,y=finaldata$Voltage,type="l",xlab="datetime",ylab="Voltage")
+plot(x=finaldata$realtime,y=finaldata$Sub_metering_1,xlab="",type="l",ylab="Energy sub metering")
+lines(x=finaldata$realtime,y=finaldata$Sub_metering_2,col="red")
+lines(x=finaldata$realtime,y=finaldata$Sub_metering_3,col="blue")
+legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2,legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+plot(x=finaldata$realtime,y=finaldata$Global_reactive_power,type="l",xlab="datetime",ylab="Global_reactive_power")
 dev.off()
